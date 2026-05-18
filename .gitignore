@@ -1,0 +1,69 @@
+así quedo el gitignore:
+
+# =========================
+# FRONTEND (Next.js)
+# =========================
+
+client/node_modules/
+client/.next/
+client/out/
+client/dist/
+client/build/
+
+# Env files
+client/.env
+client/.env.local
+client/.env.development.local
+client/.env.production.local
+
+# Package managers
+client/.pnpm-store/
+
+# =========================
+# BACKEND (Python)
+# =========================
+
+server/venv/
+server/.venv/
+server/env/
+
+server/.env
+
+# Python cache
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# OS
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE
+# =========================
+
+.vscode/*
+!.vscode/settings.json
+
+.idea/
+
+# =========================
+# LOGS
+# =========================
+
+*.log
+
+# =========================
+# GIT
+# =========================
+
+*.orig
