@@ -1,69 +1,99 @@
-así quedo el gitignore:
-
-# =========================
-# FRONTEND (Next.js)
-# =========================
+# =========================================================
+# FRONTEND — NEXT.JS / NODE
+# =========================================================
 
 client/node_modules/
 client/.next/
 client/out/
 client/dist/
 client/build/
+client/.turbo/
 
-# Env files
+# Package managers
+client/.pnpm-store/
+
+# Environment variables
 client/.env
 client/.env.local
 client/.env.development.local
 client/.env.production.local
 
-# Package managers
-client/.pnpm-store/
+# =========================================================
+# BACKEND — PYTHON
+# =========================================================
 
-# =========================
-# BACKEND (Python)
-# =========================
-
+# Virtual environments
 server/venv/
 server/.venv/
 server/env/
 
+# Environment variables
 server/.env
 
 # Python cache
 **/__pycache__/
-**/*.pyc
-**/*.pyo
-**/*.pyd
+**/*.py[cod]
+**/*.so
 
 # Pytest / coverage
 .pytest_cache/
 .coverage
 htmlcov/
+.coverage.*
 
-# =========================
-# OS
-# =========================
+# Type checking / lint cache
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# =========================================================
+# DATABASE / LOCAL DEV
+# =========================================================
+
+*.sqlite3
+
+# =========================================================
+# OS FILES
+# =========================================================
 
 .DS_Store
 Thumbs.db
 
-# =========================
-# IDE
-# =========================
+# =========================================================
+# IDE / EDITOR
+# =========================================================
 
 .vscode/*
 !.vscode/settings.json
 
 .idea/
 
-# =========================
+# =========================================================
 # LOGS
-# =========================
+# =========================================================
 
 *.log
 
-# =========================
-# GIT
-# =========================
+# =========================================================
+# GIT / MERGE
+# =========================================================
 
 *.orig
+
+# =========================================================
+# BUILD / TEMP FILES
+# =========================================================
+
+tmp/
+temp/
+*.tmp
+
+# =========================================================
+# OPTIONAL ML ARTIFACTS
+# =========================================================
+
+# server/app/ml/dataset.csv
+
+# server/app/ml/*.pkl
