@@ -12,7 +12,7 @@ class LoanModel:
     def __init__(self):
         self.model = joblib.load(MODEL_PATH)
 
-    def predict(
+    def predict_loan(
         self,
         income: float,
         debt: float,

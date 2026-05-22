@@ -1,23 +1,40 @@
+from sqlalchemy.orm import Session
+
 from app.ml.predict import loan_model
+from app.repositories.prediction_repository import (
+    PredictionRepository,
+)
 
 
-def calculate_prediction(
-    income: float,
-    debt: float,
-    credit_score: float,
-):
-    probability = loan_model.predict(
-        income=income,
-        debt=debt,
-        credit_score=credit_score,
-    )
+class PredictionService:
+    @staticmethod
+    def predict(
+        db: Session,
+        income: float,
+        debt: float,
+        credit_score: int,
+    ):
+        approval_probability = loan_model.predict_loan(
+            income=income,
+            debt=debt,
+            credit_score=credit_score,
+        )
 
-    risk = "low"
+        prediction_data = {
+            "income": income,
+            "debt": debt,
+            "credit_score": credit_score,
+            "approval_probability": approval_probability,
+            "risk": (
+                "low"
+                if approval_probability >= 0.5
+                else "high"
+            ),
+        }
 
-    if probability < 0.7:
-        risk = "high"
+        saved_prediction = PredictionRepository.create(
+            db=db,
+            prediction_data=prediction_data,
+        )
 
-    return {
-        "approval_probability": probability,
-        "risk": risk,
-    }
+        return saved_prediction
