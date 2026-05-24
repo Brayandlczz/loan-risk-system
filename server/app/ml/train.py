@@ -6,6 +6,8 @@ import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -16,28 +18,57 @@ MODEL_PATH = BASE_DIR / "model.pkl"
 def train():
     df = pd.read_csv(DATASET_PATH)
 
-    X = df[["income", "debt", "credit_score"]]
+    X = df[
+        [
+            "income",
+            "debt",
+            "credit_score",
+        ]
+    ]
+
     y = df["approved"]
 
-    X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.2,
-        random_state=42,
+    X_train, X_test, y_train, y_test = (
+        train_test_split(
+            X,
+            y,
+            test_size=0.2,
+            random_state=42,
+        )
     )
 
-    model = LogisticRegression()
+    pipeline = Pipeline([
+        (
+            "scaler",
+            StandardScaler(),
+        ),
+        (
+            "model",
+            LogisticRegression(),
+        ),
+    ])
 
-    model.fit(X_train, y_train)
+    pipeline.fit(X_train, y_train)
 
-    predictions = model.predict(X_test)
+    predictions = pipeline.predict(X_test)
 
-    accuracy = accuracy_score(y_test, predictions)
+    accuracy = accuracy_score(
+        y_test,
+        predictions,
+    )
 
-    joblib.dump(model, MODEL_PATH)
+    joblib.dump(
+        pipeline,
+        MODEL_PATH,
+    )
 
-    print(f"Model trained successfully")
-    print(f"Accuracy: {accuracy:.2f}")
+    print(
+        "Model trained successfully"
+    )
+
+    print(
+        f"Accuracy: {accuracy:.2f}"
+    )
 
 
 if __name__ == "__main__":

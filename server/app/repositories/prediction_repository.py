@@ -22,10 +22,33 @@ class PredictionRepository:
     @staticmethod
     def get_all(
         db: Session,
+        page: int = 1,
+        limit: int = 10,
+        risk: str | None = None,
+        sort: str = "desc",
     ):
+        query = db.query(Prediction)
+
+        if risk:
+            query = query.filter(
+                Prediction.risk == risk
+            )
+
+        if sort == "asc":
+            query = query.order_by(
+                Prediction.created_at.asc()
+            )
+        else:
+            query = query.order_by(
+                Prediction.created_at.desc()
+            )
+
+        offset = (page - 1) * limit
+
         return (
-            db.query(Prediction)
-            .order_by(Prediction.created_at.desc())
+            query
+            .offset(offset)
+            .limit(limit)
             .all()
         )
 
