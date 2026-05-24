@@ -51,6 +51,7 @@ export default function HomePage() {
   return (
     <DashboardLayout>
       <main
+        id="top"
         className="
           min-h-screen
           bg-zinc-100
@@ -66,7 +67,7 @@ export default function HomePage() {
             gap-8
           "
         >
-          <div>
+          <section>
             <h1
               className="
                 text-4xl
@@ -85,17 +86,26 @@ export default function HomePage() {
             >
               ML-powered loan analytics platform
             </p>
-          </div>
+          </section>
 
-          <PredictionForm />
+          <section id="prediction-engine">
+            <PredictionForm />
+          </section>
 
-          <StatsCards stats={stats} />
+          <section
+            id="analytics"
+            className="space-y-8"
+          >
+            <StatsCards stats={stats} />
 
-          <RiskChart stats={stats} />
+            <RiskChart stats={stats} />
+          </section>
 
-          <PredictionsTable
-            predictions={predictions}
-          />
+          <section id="history">
+            <PredictionsTable
+              predictions={predictions}
+            />
+          </section>
         </div>
       </main>
     </DashboardLayout>
