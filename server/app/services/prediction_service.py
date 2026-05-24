@@ -38,11 +38,20 @@ class PredictionService:
 
         return saved_prediction
 
-    @staticmethod
     def get_predictions(
         db: Session,
+        page: int = 1,
+        limit: int = 10,
+        risk: str | None = None,
+        sort: str = "desc",
     ):
-        return PredictionRepository.get_all(db)
+        return PredictionRepository.get_all(
+            db=db,
+            page=page,
+            limit=limit,
+            risk=risk,
+            sort=sort,
+        )
 
     @staticmethod
     def get_prediction(

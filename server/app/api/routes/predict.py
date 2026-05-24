@@ -38,15 +38,25 @@ def predict(
     response_model=List[PredictionHistoryResponse],
 )
 def get_predictions(
+    page: int = 1,
+    limit: int = 10,
+    risk: str | None = None,
+    sort: str = "desc",
     db: Session = Depends(get_db),
 ):
-    return PredictionService.get_predictions(db)
-
+    return PredictionService.get_predictions(
+        db=db,
+        page=page,
+        limit=limit,
+        risk=risk,
+        sort=sort,
+    )
 
 @router.get(
     "/predictions/{prediction_id}",
     response_model=PredictionHistoryResponse,
 )
+
 def get_prediction(
     prediction_id: int,
     db: Session = Depends(get_db),
