@@ -5,7 +5,6 @@ from app.repositories.prediction_repository import (
     PredictionRepository,
 )
 
-
 class PredictionService:
     @staticmethod
     def predict(
@@ -38,3 +37,26 @@ class PredictionService:
         )
 
         return saved_prediction
+
+    @staticmethod
+    def get_predictions(
+        db: Session,
+    ):
+        return PredictionRepository.get_all(db)
+
+    @staticmethod
+    def get_prediction(
+        db: Session,
+        prediction_id: int,
+    ):
+        return PredictionRepository.get_by_id(
+            db,
+            prediction_id,
+        )
+
+    @staticmethod
+    def get_stats(
+        db: Session,
+    ):
+        return PredictionRepository.get_stats(db)
+        
